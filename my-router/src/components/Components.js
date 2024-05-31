@@ -8,7 +8,7 @@ export function Home() {
             <h1>[ 홈페이지 ]</h1>
             <nav>
                 <li>
-                    <a>회사소개</a>
+                    <a href="/about">회사소개</a>
                 </li>
                 <li>이벤트</li>
                 <li>제품</li>
