@@ -14,28 +14,39 @@ const initialAttendanceInfo = {
   ]
 }
 
-const reducer = (state,action) => {
+const reducer = (state, action) => {
+  // console.log(action)
+
   switch (action.type) {
     case 'add-list':
     const presentStudent = {
-      // id: currentStudentId.current += 1,
-      id: action.payload.id +=1,
+      id: ++action.payload.currentStudentId.current,
       name: action.payload.name,
       isAbsent: false
     }
-    console.log(presentStudent);
+    // console.log(action.payload.id);
 
     return {
       // count: ++studentTotal.current,
-      count: ++action.count,
+      count: ++action.payload.studentTotal.current,
       students: [
         ...state.students,presentStudent
       ]
     };
+
+    case 'delete-student':
+      return({
+        count: --action.payload.studentTotal.current,
+        students: state.students.filter(
+          (student) => action.payload.currentStudentId.current !== id
+        )
+      })
+      
     default:
       return state;
   }
 }
+
 
 
 function App() {
@@ -44,28 +55,28 @@ function App() {
   const [attendanceInfo2, dispatch] = useReducer(reducer, initialAttendanceInfo);
 
   const studentTotal = useRef(1);
-  const currentStudentId = useRef(1);
-
+  console.log('total : ', studentTotal.current)
   
+  const currentStudentId = useRef(1);
+  console.log('currentId : ', currentStudentId.current)
 
+  // const onAdd = () => {
 
-  const onAdd = () => {
+  //   const presentStudent = {
+  //     id: currentStudentId.current += 1,
+  //     name: name,
+  //     isAbsent: false
+  //   }
 
-    const presentStudent = {
-      id: currentStudentId.current += 1,
-      name: name,
-      isAbsent: false
-    }
-
-    setAttendanceInfo({
-      // count: ++studentTotal.current,
-      count: ++studentTotal.current,
-      students: [
-        ...attendanceInfo.students,presentStudent
-      ]
-    })
+  //   setAttendanceInfo({
+  //     // count: ++studentTotal.current,
+  //     count: ++studentTotal.current,
+  //     students: [
+  //       ...attendanceInfo.students,presentStudent
+  //     ]
+  //   })
     
-  }
+  // }
 
 
   const onDelete = (id) => {
@@ -99,9 +110,8 @@ function App() {
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
-       
-        <button onClick={() => onAdd()}>Add</button>        
-        <button onClick={() => dispatch({payload:{name}, type:'add-list'})}>Add(reducer)</button>
+             
+        <button onClick={() => dispatch({payload:{name, currentStudentId, studentTotal}, type:'add-list'})}>Add(reducer)</button>
 
       </div>
       <div>
