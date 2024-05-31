@@ -1,7 +1,6 @@
-import logo from './logo.svg';
 import './App.css';
-import React, { useState, useRef } from 'react';
-import Student from './components/Student';
+import React, { useState, useRef, useReducer } from 'react';
+import Student from './components/Student.js';
 
 
 const initialAttendanceInfo = {
@@ -15,14 +14,39 @@ const initialAttendanceInfo = {
   ]
 }
 
+const reducer = (state,action) => {
+  switch (action.type) {
+    case 'add-list':
+    const presentStudent = {
+      // id: currentStudentId.current += 1,
+      id: action.payload.id +=1,
+      name: action.payload.name,
+      isAbsent: false
+    }
+    console.log(presentStudent);
+
+    return {
+      // count: ++studentTotal.current,
+      count: ++action.count,
+      students: [
+        ...state.students,presentStudent
+      ]
+    };
+    default:
+      return state;
+  }
+}
+
 
 function App() {
   const [name, setName] = useState('');
   const [attendanceInfo, setAttendanceInfo] = useState(initialAttendanceInfo);
+  const [attendanceInfo2, dispatch] = useReducer(reducer, initialAttendanceInfo);
 
   const studentTotal = useRef(1);
   const currentStudentId = useRef(1);
 
+  
 
 
   const onAdd = () => {
@@ -34,6 +58,7 @@ function App() {
     }
 
     setAttendanceInfo({
+      // count: ++studentTotal.current,
       count: ++studentTotal.current,
       students: [
         ...attendanceInfo.students,presentStudent
@@ -75,11 +100,13 @@ function App() {
           onChange={(e) => setName(e.target.value)}
         />
        
-        <button onClick={() => onAdd()}>Add</button>
+        <button onClick={() => onAdd()}>Add</button>        
+        <button onClick={() => dispatch({payload:{name}, type:'add-list'})}>Add(reducer)</button>
 
       </div>
       <div>
-        {attendanceInfo.students.map((student) => {
+        {/* {attendanceInfo.students.map((student) => { */}
+        {attendanceInfo2.students && attendanceInfo2.students.map((student) => {
           return <Student 
                   key={student.id} 
                   name={student.name} 
