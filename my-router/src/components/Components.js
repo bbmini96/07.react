@@ -1,15 +1,22 @@
-import React from "react";
-import { Outlet } from "react-router-dom";
+import {React, useState} from "react";
+
+import { Link, Outlet, useLocation, useParams, useSearchParams } from "react-router-dom";
 
 // home
 export function Home() {
+    // 링크 연습!
+    const [name, setName] = useState('IT');
+
     return (
         <div>
             <h1>[ 홈페이지 ]</h1>
             <nav>
                 <li>
-                    <a href="/about">회사소개</a>
+                    {/* rerendering */}
+                    <a href="/about">회사소개</a>   
                 </li>
+                {/* a태그를 모방하지만 렌더링되지 않는다   */}
+                <Link to="/about" state={name}>회사소개(Link)</Link>
                 <li>이벤트</li>
                 <li>제품</li>
                 <li>고객지원</li>
@@ -20,6 +27,7 @@ export function Home() {
 
 // /about
 export function About() {
+    console.log(useLocation())
     return (
         <div>
             <h1>[ 회사소개 ]</h1>
@@ -72,11 +80,24 @@ export function Events() {
         </div>
     );
 }
+
+// QueryString: /products?productId=??
+// URL Parameter
 export function Products() {
+    // QueryString: useSearchParams
+    const [searchParams, setSerchParams] = useSearchParams();
+    const productId = searchParams.get('productId');
+
+    // Link Params : useParmas
+    const { urlProductId } = useParams();
+    console.log( { urlProductId }); 
+
+
     return (
         <div>
             <h1>[ 제품 ]</h1>
-            <p>제품번호 : productId</p>
+            <p>제품번호 : {productId}</p>
+            <p>제품번호 : {urlProductId}</p>
         </div>
     );
 }
