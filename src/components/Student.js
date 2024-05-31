@@ -13,5 +13,5 @@ export default function Student({ id, name, onDelete, onUpdate, isAbsent }) {
             <span><button onClick={ () => onDelete(id)}> X </button>
             </span>
         </div>
-    )
+    )  
 }
