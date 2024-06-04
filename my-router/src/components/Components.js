@@ -32,7 +32,8 @@ export function About() {
         <div>
             <h1>[ 회사소개 ]</h1>
             <p>회사소개</p>
-            <Outlet />
+            {/* 하위 컴포넌트까지 출력해주는 outlet */}
+            <Outlet />      
         </div>
     );
 }
@@ -82,7 +83,7 @@ export function Events() {
 }
 
 // QueryString: /products?productId=??
-// URL Parameter
+// URL Parameter => 훅꺼내기
 export function Products() {
     // QueryString: useSearchParams
     const [searchParams, setSerchParams] = useSearchParams();
