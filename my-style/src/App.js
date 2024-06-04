@@ -1,15 +1,21 @@
-import logo from './logo.svg';
+
 import './App.css';
 import Style from './components/Style';
-import { Style2 } from './components/Style2';
+import { GlobalStyle, Style2, theme } from './components/Style2';
+import { ThemeProvider } from 'styled-components';
 
 
 function App() {
   return (
     <div className="App">
+      <ThemeProvider theme={theme}>
+      <GlobalStyle />
+
       {/* <Style /> */}
       <Style2 />
+      </ThemeProvider>
     </div>
+    
   )
 }
 
