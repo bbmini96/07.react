@@ -1,0 +1,44 @@
+/* CSS에서 변수 선언 */
+:root{
+    --navbar-bg-color: #333;
+}       
+
+
+.navbar {
+    background-color: var(--navbar-bg-color);
+    color: #fff;
+    padding: 10px;
+  }
+ 
+  .navbar a {
+    color: #fff;
+    text-decoration: none;
+    padding: 5px 10px;
+  }
+ 
+  .navbar a:hover {
+    background-color: #555;
+  }
+ 
+  .submenu {
+    display: none;
+  }
+ 
+  .submenu-trigger:hover + .submenu {
+    display: block;
+    position: absolute;
+    top: 30%;
+    left: 0;
+    background-color: #555;
+  }
+ 
+  .submenu a {
+    display: block;
+    padding: 5px 10px;
+    color: #fff;
+    text-decoration: none;
+  }
+ 
+  .submenu a:hover {
+    background-color: #777;
+  }

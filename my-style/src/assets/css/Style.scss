@@ -1,0 +1,73 @@
+// 변수 선언
+$navbar-bg-color: #333;
+$bgcolor: 'background-color';
+
+.navbar {
+    #{$bgcolor}: $navbar-bg-color;
+    color: #fff;
+    padding: 10px;
+
+    a {
+        // navbar안에서 일어나는 css적용
+        color: #fff;
+        text-decoration: none;
+        padding: 5px 10px;
+
+        &:hover {
+            // &는 부모요소를 참조한닼
+            background-color: #555;
+        }
+    }
+
+    .submenu {
+        display: none;
+    }
+
+    .submenu-trigger:hover+.submenu {
+        display: block;
+        position: absolute;
+        top: 30%;
+        left: 0;
+        background-color: #555;
+
+        a {
+            display: block;
+            padding: 5px 10px;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        &:hover {
+            background-color: #777;
+        }
+    }
+
+}
+
+@mixin box1-style($color: gold) {
+    // 재사용
+    margin: 10px;
+    width: 200px;
+    height: 200px;
+    background-color: $color;
+    background-color: #{$color};
+}
+
+@mixin flex-center-style {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 50px;
+}
+
+.box1 {
+    @include flex-center-style();
+    // @include box1-style('red');      
+    @include box1-style(red); // 재사용 불러오기
+}
+
+.box2 {
+    @include flex-center-style();
+    @include box1-style('blue'); // 재사용 불러오기
+
+}
