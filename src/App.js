@@ -1,6 +1,7 @@
 import './App.css';
 import React, { useState, useRef, useReducer } from 'react';
 import Student from './components/Student.js';
+import styled from "styled-components";
 
 
 const initialAttendanceInfo = {
@@ -34,13 +35,13 @@ const reducer = (state, action) => {
       ]
     };
 
-    case 'delete-student':
-      return({
-        count: --action.payload.studentTotal.current,
-        students: state.students.filter(
-          (student) => action.payload.currentStudentId.current !== id
-        )
-      })
+    // case 'delete-student':
+    //   return({
+    //     count: --action.payload.studentTotal.current,
+    //     students: state.students.filter(
+    //       (student) => action.payload.currentStudentId.current !== id
+    //     )
+    //   })
       
     default:
       return state;
@@ -59,24 +60,6 @@ function App() {
   
   const currentStudentId = useRef(1);
   console.log('currentId : ', currentStudentId.current)
-
-  // const onAdd = () => {
-
-  //   const presentStudent = {
-  //     id: currentStudentId.current += 1,
-  //     name: name,
-  //     isAbsent: false
-  //   }
-
-  //   setAttendanceInfo({
-  //     // count: ++studentTotal.current,
-  //     count: ++studentTotal.current,
-  //     students: [
-  //       ...attendanceInfo.students,presentStudent
-  //     ]
-  //   })
-    
-  // }
 
 
   const onDelete = (id) => {
@@ -97,10 +80,28 @@ function App() {
     })
   }
 
+
+  const Wrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 30vh;
+`
+  const Title = styled.h1`
+  text-align: center;
+  background-color: yellow;
+  `
+  const Attendance = styled(Title)`
+    color: red;
+  `
+
+
   return (
+    <Wrapper>
     <div>
-      <h1>Attendance</h1>
-      <p>Attendance List Total : {attendanceInfo.count}</p>
+      <Title as="h1" >Attendance</Title>
+      <Attendance as="p">Attendance List Total : {attendanceInfo.count}</Attendance>
 
 
       <div>
@@ -128,6 +129,7 @@ function App() {
         })}
       </div>
     </div>
+    </Wrapper>
   );
 }
 
