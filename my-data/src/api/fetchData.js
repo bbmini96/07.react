@@ -33,7 +33,7 @@ function fetchUser(userId) {
     return {
         read() {
             if (user === null) {
-                throw suspender;
+                throw suspender;    // 미완성된 객체를 throw를 해줘야 한다.
             } else {
                 return user;
             }
