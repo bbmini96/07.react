@@ -48,7 +48,7 @@ const BackButton = styled.button`
 export function Printing() {
 
     const navigate = useNavigate();
-    const [imageSrc, setImageSrc] = useState();
+    const [imageSrc, setImageSrc] = useState(null);
 
     const DogImage = async () => {
         try {
