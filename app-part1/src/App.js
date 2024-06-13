@@ -1,38 +1,51 @@
 import logo from './logo.svg';
 import './App.css';
 import { useEffect, useState } from 'react';
+import axios from 'axios';
+import Pagination from './components/Pagination';
+
 
 function App() {
-  const [notice, setNotice] = useState([]);
+  const [pageInfo, setPageInfo] = useState({});
+
+  const fetchPageInfo = async(page) => {
+    try {
+      const response = await axios.get(`/api/notice`, {
+        params: {
+          page: page
+        }
+      });
+      const data = response.data;
+  
+      setPageInfo(data);
+    } catch(error) {
+      console.log('erorr');
+    }
+  }
 
   useEffect(() => {
-
-    
-    let page = 9;
-    // v1 : general fetch
-    // fetch(`http://localhost:8080/api/notice?page=${page}`)
-    
-    
-    // v2 : URLSearchParams
-    // let url = new URL(`/api/notice`);
-    // let params = { page }; // { page : page }
-    // url.search = new URLSearchParams(params).toString();
-    let url = `/api/notice?page=${page}`;
-    fetch(url)
-      .then((response) => response.json())
-      .then((data) => setNotice(data.resultList));
+    fetchPageInfo(0);
   }, [])
 
   return (
     <div className="App">
+      <form method='GET'>
+        <input type='text' id='search-notice-input' 
+                placeholder='Search Notice Keyword' name='keyword'>
+        </input>
+        <button type='submit'>search</button>
+      </form>
       <ul>
-        {notice && notice.map((notice) => (
+        {pageInfo.resultList && pageInfo.resultList.map((notice) => (
           <li key={notice.no}>
             {notice.no} : {notice.title} - {notice.content}
           </li>
         ))}
       </ul>
-      
+      <Pagination 
+        pageInfo={pageInfo}
+        handlePageInfo={fetchPageInfo}
+      />
     </div>
   );
 }
