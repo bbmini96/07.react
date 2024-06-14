@@ -44,7 +44,7 @@ const PageSpan = styled.span`
 `;
 
 
-const Pagination = ({ pageInfo, handlePageInfo }) => {
+const Pagination = ({ pageInfo, handlePageInfo, keyword }) => {
 
   return (
     <div>
@@ -52,7 +52,7 @@ const Pagination = ({ pageInfo, handlePageInfo }) => {
         <PageUl>
           {pageInfo.prev ?
             (<PageLi>
-              <PageSpan onClick={() => handlePageInfo(Math.min(...pageInfo.pageList)-10)}>
+              <PageSpan onClick={() => handlePageInfo({page: Math.min(...pageInfo.pageList)-10, keyword: keyword})}>
                 &lt;
               </PageSpan>
             </PageLi>) : (<></>)
@@ -60,7 +60,7 @@ const Pagination = ({ pageInfo, handlePageInfo }) => {
 
           {pageInfo.pageList && pageInfo.pageList.map((pageNumber) => (
             <PageLi key={pageNumber}>
-              <PageSpan onClick={() => handlePageInfo(pageNumber - 1)}>
+              <PageSpan onClick={() => handlePageInfo({page: pageNumber - 1, keyword: keyword})}>
                 {pageNumber}
               </PageSpan>
             </PageLi>
@@ -68,7 +68,7 @@ const Pagination = ({ pageInfo, handlePageInfo }) => {
 
           {pageInfo.next ?
            (<PageLi>
-            <PageSpan onClick={() => handlePageInfo(Math.max(...pageInfo.pageList)+1)}>
+            <PageSpan onClick={() => handlePageInfo({page:(Math.max(...pageInfo.pageList)+1), keyword: keyword})}>
               &gt;
             </PageSpan>
           </PageLi>): (<></>)
