@@ -20,6 +20,7 @@ function App() {
 
 
 
+  
   const fetchPageInfo = async(param) => {
     let url = `/api/query-notice?`;  
     let queryParams = {...param};   // 구조 풀어주기
