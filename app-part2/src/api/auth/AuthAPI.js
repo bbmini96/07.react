@@ -13,7 +13,9 @@ export const AuthApi = axios.create({
 
 export const login = async ({ username, password }) => {
     // 
-    return {};
+    const data = {username, password};
+    const response =await AuthApi.post(`/api/v1/auth/login`, data);
+    return response.data;
 }
 
 export const signUp = async ({ username, password }) => {

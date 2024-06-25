@@ -9,15 +9,23 @@ export default function SignInPage() {
 
     const handleChange = async (e) => {
         // 
+        setValues({...values, 
+            [e.target.id] : e.target.value,
+        });   
         
     }
 
     const handleSubmit = async (e) => {
         // 
+        e.preventDefault();
         login(values)
         .then((response) => {
+            localStorage.clear();
             //
-            
+            localStorage.setItem('tokenType', response.tokenType);
+            localStorage.setItem('accessToken', response.accessToken);
+            localStorage.setItem('refreshToken', response.refreshToken);
+
             window.location.href = `/home`;
         }).catch((error) => {
             console.log(error);
