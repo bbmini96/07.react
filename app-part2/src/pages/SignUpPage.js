@@ -1,6 +1,8 @@
 import { useState } from "react";
-import { signUp } from "../api/auth/AuthAPI";
+import {  AuthApi, signUp } from "../api/auth/AuthAPI";
 import { useNavigate } from "react-router";
+import axios from "axios";
+import SignInPage from "./SignInPage";
 
 export default function SignUpPage() {
     const [values, setValues] = useState({
@@ -11,7 +13,9 @@ export default function SignUpPage() {
 
     const handleChange = async (e) => {
         //
-        
+        setValues({...values, 
+            [e.target.id] : e.target.value,
+        });        
     }
 
     const handleSubmit = async (e) => {
@@ -20,7 +24,7 @@ export default function SignUpPage() {
         
         signUp(values)
         .then((response) => {
-
+            navigate('/signin')
         }).catch((error) => {
             console.log(error);
         });

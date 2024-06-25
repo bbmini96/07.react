@@ -5,7 +5,10 @@ let ACCESS_TOKEN = localStorage.getItem("accessToken");
 
 export const AuthApi = axios.create({
     //
-
+    baseURL: `http://localhost:8088`,
+    headers: {
+        'Content-Type': 'application/json'
+    }
 });
 
 export const login = async ({ username, password }) => {
@@ -15,5 +18,7 @@ export const login = async ({ username, password }) => {
 
 export const signUp = async ({ username, password }) => {
     // 
-    return {};
+    const data = {username, password};
+    const response =await AuthApi.post(`/api/v1/auth/signup`, data);
+    return response.data;
 }
